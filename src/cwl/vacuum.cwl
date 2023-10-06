@@ -32,7 +32,9 @@ doc: |
 inputs:
   #$import: db.yaml
   registry:
-    type: File?
+    type:
+      - File?
+      - string?
     inputBinding:
       prefix: --registry
     doc: |
@@ -48,7 +50,7 @@ inputs:
     inputBinding:
       prefix: --table
   database:
-    type: string
+    type: File
     doc: Path to database connection file, usually database.ini
     inputBinding:
       prefix: --db
@@ -71,3 +73,4 @@ outputs:
     type: stderr
 
 stderr: $("vacuum-" + inputs.table + ".err")
+

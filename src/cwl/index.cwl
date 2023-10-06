@@ -33,13 +33,16 @@ doc: |
 inputs:
   #$import: db.yaml
   registry:
-    type: File?
+    type:
+      - File?
+      - string?
     inputBinding:
       prefix: --registry
     doc: |
       A path to the data model file
   domain:
     type: string
+    doc: the name of the domain
     inputBinding:
       prefix: --domain
   table:
@@ -48,7 +51,7 @@ inputs:
     inputBinding:
       prefix: --table
   database:
-    type: string
+    type: File
     doc: Path to database connection file, usually database.ini
     inputBinding:
       prefix: --db
@@ -57,9 +60,23 @@ inputs:
     doc: The name of the section in the database.ini file
     inputBinding:
       prefix: --connection
+  incremental:
+    type:  boolean
+    default: false
+    inputBinding:
+      prefix: --incremental
+  force:
+    type:  boolean
+    default: false
+    inputBinding:
+      prefix: --force
   depends_on:
     type: Any?
     doc: a special field used to enforce dependencies and execution order
+
+
+arguments:
+    - valueFrom: "--autocommit"
 
 
 outputs:
@@ -71,3 +88,4 @@ outputs:
     type: stderr
 
 stderr:  $("index-" + inputs.table + ".err")
+
